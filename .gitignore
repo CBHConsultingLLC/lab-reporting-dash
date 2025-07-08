@@ -3,7 +3,7 @@
 /js
 /node_modules
 /src
-/*
+/ignore
 
 # Node.js dependencies
 /node_modules/
