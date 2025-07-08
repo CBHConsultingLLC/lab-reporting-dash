@@ -6,7 +6,7 @@ var __commonJS = (cb, mod) => function __require() {
 };
 var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 var require_main_001 = __commonJS({
-  "assets/main-UF5f4hPy.js"(exports, module) {
+  "assets/main-B896hOOK.js"(exports, module) {
     (function polyfill() {
       const relList = document.createElement("link").relList;
       if (relList && relList.supports && relList.supports("modulepreload")) {
@@ -66419,6 +66419,7 @@ var require_main_001 = __commonJS({
         }
       });
     })(jQuery);
+    window.$ = window.jQuery = jQuery;
     window.onload = function() {
       if (typeof initialLoad === "function") {
         initialLoad();

@@ -4,6 +4,7 @@ import './css/tabulator.min.css';
 import './css/ui.fancytree.min.css';
 
 import './js/jquery-3.7.1.min.js';
+window.$ = window.jQuery = jQuery;
 import './js/jquery-ui.min.js';
 import './js/bootstrap.bundle.min.js';
 import './js/bootstrap-datepicker.min.js';
