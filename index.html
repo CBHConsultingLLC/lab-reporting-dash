@@ -1,18 +1,16 @@
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pharmacy Floorstock Tracker</title>
+    <meta charset="UTF-8">
+    <title>Quest Reporting Dashboard</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" crossorigin="anonymous">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/css/bootstrap-datepicker.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />	
 	<link rel="stylesheet" href="https://unpkg.com/tabulator-tables@6.3.1/dist/css/tabulator.min.css" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tabulator/6.3.0/css/tabulator_bootstrap5.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.38.4/skin-awesome/ui.fancytree.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />		
-	<link rel="stylesheet" href="assets/pharm_fs_main_report_driver.css" />
-	
-	<script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="assets/lab_reporting_dash.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.10.0/js/bootstrap-datepicker.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -23,226 +21,212 @@
 	<script src="https://kit.fontawesome.com/d98fc94c11.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.fancytree/2.38.5/jquery.fancytree-all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.23.0/src/jquery.fancytree.filter.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.23.0/src/jquery.fancytree.glyph.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="assets/pharm_fs_main_report_driver.js"></script>
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.fancytree@2.23.0/src/jquery.fancytree.glyph.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="assets/lab_reporting_dash.js"></script>
 
-<body onload="initialLoad()">
+<body onload="initialload()">
     <div class="dashboard-container">
         <header class="header-bar text-center">
-            <div style="
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-          ">
+            <div style="display:flex;justify-content:space-between;">
+                <div id="promptTogglePromptDiv"><i id="promptToggleIcon" class="fas fa-bars fa-xl"
+                        style="color:white;cursor:pointer;" aria-hidden="true"></i></div>
                 <div>
-                    <div style="font-size: 30px; font-weight: bold">
-                        Pharmacy Floorstock Tracker
-                    </div>
+                    <div style="font-size:30px;font-weight:bold;margin-top:-10px;">Quest Reporting Dashboard</div>
                 </div>
-                <div>
-                    <i id="loadFormularyManagerBtn" class="fa-solid fa-database fa-xl" title="Formulary Tool"
-                        style="color: white; cursor: pointer" aria-hidden="true"></i><span class="sr-only">Formulary
-                        Tool</span>
-                </div>
+                <div><i id="workloadInfoBtn" class="fa-solid fa-circle-info fa-xl" title="View Report Information"
+                        style="cursor:pointer;" aria-hidden="true"></i><span class="sr-only">View Report
+                        Information</span></div>
             </div>
         </header>
-        <div style="
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        ">
-            <div style="margin-left: 1em">
-                <i id="inventoryFilterOptionsBtn" class="fa-solid fa-bars fa-2xl" title="Filter Options"
-                    style="cursor: pointer" aria-hidden="true"></i><span class="sr-only">Filter Options</span><i
-                    id="changesFilterOptionsBtn" class="fa-solid fa-bars fa-2xl" title="Filter Options"
-                    style="cursor: pointer; display: none" aria-hidden="true"></i><span class="sr-only">Filter
-                    Options</span>
-            </div>
-            <div>
-                <ul class="nav nav-pills justify-content-center py-2">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#" id="reportsBtn">Location</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" id="dashboardBtn">Changes</a>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <i id="downloadCurrentTableBtn" class="fa-solid fa-download fa-2xl" title="Download"
-                    style="cursor: pointer; display: none" aria-hidden="true"></i><span class="sr-only">Download</span>
-            </div>
-        </div>
-        <hr />
+        <ul class="nav nav-pills justify-content-center py-2">
+            <li class="nav-item"><a class="nav-link active" href="#" id="reportsBtn">Reports</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="dashboardBtn">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="settingsBtn">Settings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#" id="adminBtn">Admin</a></li>
+        </ul>
+        <hr style="margin:0;padding:0;">
         <div class="dashboard-main">
-            <div style="flex: 1">
-                <div id="reportsDiv" style="display: block; height: -webkit-fill-available">
-                    <div class="d-flex" style="height: 100%; width: 100%">
-                        <div id="locationFilterDiv" class="card p-3 shadow-sm"
-                            style="width: 30vw; min-width: 30vw; margin-right: 1em">
-                            <h5 class="card-title mb-3">Location Filters</h5>
+            <div style="flex:1;padding:20px;overflow-y:auto;">
+                <div id="reportsDiv" style="display: block; height: -webkit-fill-available;">
+                    <div class="d-flex" style="height:100%;">
+                        <div id="dashboard-sidebar" class="dashboard-sidebar" style="min-width:fit-content;">
                             <div class="mb-3">
-                                <div class="input-group dflex" role="group">
-                                    <label class="form-label" style="width: 3em">Type:</label><input type="radio"
-                                        class="btn-check" name="btnradio" id="btnradio5"
-                                        loctype="fa-solid fa-cabinet-filing" /><label class="btn btn-outline-primary"
-                                        for="btnradio5" title="Cabinet / Carousel"><i class="fa-solid fa-cabinet-filing"
-                                            aria-hidden="true"></i></label><input type="radio" class="btn-check"
-                                        name="btnradio" id="btnradio1" loctype="fa-solid fa-mortar-pestle" /><label
-                                        class="btn btn-outline-primary" for="btnradio1" title="Pharmacy"><i
-                                            class="fa-solid fa-mortar-pestle" aria-hidden="true"></i></label><input
-                                        type="radio" class="btn-check" name="btnradio" id="btnradio2"
-                                        loctype="fa-solid fa-user-nurse-hair-long" /><label
-                                        class="btn btn-outline-primary" for="btnradio2" title="Nurse Unit"><i
-                                            class="fa-solid fa-user-nurse-hair-long"
-                                            aria-hidden="true"></i></label><input type="radio" class="btn-check"
-                                        name="btnradio" id="btnradio3" loctype="fa-solid fa-house-medical-flag" /><label
-                                        class="btn btn-outline-primary" for="btnradio3" title="Ambulatory"><i
-                                            class="fa-solid fa-house-medical-flag" aria-hidden="true"></i></label><input
-                                        type="radio" class="btn-check" name="btnradio" id="btnradio4"
-                                        loctype="fa-solid fa-syringe" /><label class="btn btn-outline-primary"
-                                        for="btnradio4" title="Inventory"><i class="fa-solid fa-syringe"
-                                            aria-hidden="true"></i></label><input type="button" class="btn"
-                                        id="btnResetLocTypeSearch" style="border: none" disabled="" /><label
-                                        id="btnResetLocTypeSearchLabel" class="btn btn-outline-primary"
-                                        for="btnResetLocTypeSearch" title="Clear Filter" disabled="disabled"><i
-                                            class="fa-solid fa-circle-xmark" aria-hidden="true"></i></label>
-                                </div>
-                                <div style="padding: 10px"></div>
-                                <div id="locationCabinetTree">
-                                    <ul style="display: none" class="ui-fancytree-source ui-helper-hidden">
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            Advanced Cardiology Practice Berkshire
-                                            <ul>
-                                                <li id="2609228293.000000" data-icon="fa-solid fa-syringe">
-                                                    Advanced Cardiology Berkshire (Private)
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            Advanced Cardiology Practice Clifton 246
-                                            <ul>
-                                                <li id="2609230529.000000" data-icon="fa-solid fa-syringe">
-                                                    Advanced Cardiology Clifton 246 Private
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            Pediatric Hematology Oncology Getty
-                                            <ul>
-                                                <li id="2555693677.000000" data-icon="fa-solid fa-syringe">
-                                                    Peds Hematology Oncology Getty(Priv)
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            Pediatric Hematology Oncology Paterson
-                                            <ul>
-                                                <li id="2555693653.000000" data-icon="fa-solid fa-syringe">
-                                                    Peds Hematology Oncology Pat (Private)
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            St. Joseph's University Medical Center
-                                            <ul>
-                                                <li id="2554275287.000000" data-icon="fa-solid fa-user-nurse-hair-long">
-                                                    CCB 3N
-                                                </li>
-                                                <li id="2554275551.000000" data-icon="fa-solid fa-user-nurse-hair-long">
-                                                    CCB 3S
-                                                </li>
-                                                <li id="6065135823.000000" data-icon="fa-solid fa-cabinet-filing">
-                                                    PBC SJX3IV
-                                                </li>
-                                                <li id="2554376983.000000" data-icon="fa-solid fa-mortar-pestle">
-                                                    Pharmacy Main SJRH
-                                                </li>
-                                                <li id="2555556309.000000" data-icon="fa-solid fa-cabinet-filing">
-                                                    UBC SJASENDO02
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li data-icon="fa-solid fa-hospitals">
-                                            University Imaging St. Joseph's Wayne Hospital
-                                            <ul>
-                                                <li id="2554440165.000000" data-icon="fa-solid fa-house-medical-flag">
-                                                    Univ Imaging
-                                                </li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div style="padding: 10px"></div>
-                                <div class="mb-3">
-                                    <div class="input-group dflex" role="group">
-                                        <button class="btn btn-primary" id="submitInventoryBtn" disabled="">
-                                            Submit
-                                        </button>
+                                <div class="inputTitle">Reports</div><select class="form-select" id="reportSelect"
+                                    required="">
+                                    <option value="1_STJO_LAB_CANCEL_RPT">Orders - Cancelled</option>
+                                    <option value="1_STJO_LAB_VOLUME_RPT">Orders - Volume</option>
+                                    <option value="1_STJO_LAB_TAT_TECHS">Productivity - All Users</option>
+                                    <option value="1_STJO_LAB_CRIT_TAT_RPT">Results - Critical Notify</option>
+                                    <option value="1_STJO_LAB_STAT_TAT_DRV">TAT - All STAT Orders</option>
+                                    <option value="1_STJO_LAB_ED_LACTIC_RPT">TAT - ED Lactic Acid Orders</option>
+                                    <option value="1_STJO_LAB_ED_TAT_DRV">TAT - ED STAT Orders</option>
+                                    <option value="1_STJO_LAB_IP_TAT_DRV">TAT - Non-ED STAT Orders</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="inputTitle">Start Date</div><input type="text" class="form-control"
+                                    id="startDate" autocomplete="off" aria-autocomplete="none" required="">
+                            </div>
+                            <div class=" col-md-12">
+                                <div class="inputTitle">End Date</div><input type="text" class="form-control"
+                                    id="endDate" autocomplete="off" aria-autocomplete="none" required="">
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inputTitle">Location</div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineFacilityOptions" id="stjrLocationRadio" value="1"
+                                                checked=""><label class="form-check-label"
+                                                for="stjrLocationRadio">Paterson</label></div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineFacilityOptions" id="stjwLocationRadio" value="2"><label
+                                                class="form-check-label" for="stjwLocationRadio">Wayne</label></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="inputTitle">Report Type</div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineRadioOptions" id="summaryLayoutRadio" value="1"
+                                                checked=""><label class="form-check-label"
+                                                for="summaryLayoutRadio">Summary</label></div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineRadioOptions" id="detailRadio" value="2"><label
+                                                class="form-check-label" for="detailRadio">Detail</label></div>
                                     </div>
                                 </div>
+                            </div><button id="submitRptBtn" class="btn btn-primary w-100 inputButton"
+                                onclick="loadReport();">Run Report</button>
+                            <div style="margin-top:20px;">
+                                <div></div>
                             </div>
                         </div>
-                        <div id="tableDetailDiv" style="display: none; width: 100%">
-                            <div style="width: 100%">
-                                <span><b><u>Location</u></b>: </span><span id="inventoryHeaderTitleLocation"
-                                    location=""></span>
+                        <div id="loadingDiv" style="width:100%;align:center;display:none;">
+                            <section>
+                                <div class="loading loading01">
+                                    <span>L</span><span>O</span><span>A</span><span>D</span><span>I</span><span>N</span><span>G</span><span>.</span><span>.</span><span>.&nbsp;&nbsp;</span><span
+                                        id="currentExecutePercentage"></span></div>
+                            </section>
+                        </div>
+                        <div id="tableDetailDiv" style="display:none;">
+                            <div style="display:flex;justify-content:space-between;">
+                                <div>
+                                    <p id="currentReportDetails"></p>
+                                </div>
+                                <div></div>
+                                <div><i id="downloadDetailSpreadsheetIcn" class="fa-solid fa-file-arrow-down fa-xl"
+                                        title="Download Spreadsheet" style="cursor:pointer;"
+                                        aria-hidden="true"></i><span class="sr-only">Download Spreadsheet</span></div>
                             </div>
-                            <div id="mainTable" class="table-sm" style="display: block; width: 100%"></div>
+                            <div id="mainTable" class="table-sm" style="width:98vw;"></div>
+                        </div>
+                        <div id="tableSummaryDiv" style="width:100%;display:none;"><iframe id="reportFrame"
+                                class="dashboard-iframe" src=""></iframe></div>
+                    </div>
+                </div>
+                <div id="dashboardDiv" style="display:none;">
+                    <div class="d-flex" style="height:100%;">
+                        <div id="dashboard-sidebar-02" class="dashboard-sidebar" style="min-width:fit-content;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="inputTitle">Facility</div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineDashFacilityOptions" id="stjrDashLocationRadio"
+                                                value="1.1"><label class="form-check-label"
+                                                for="stjrDashLocationRadio">Paterson</label></div>
+                                        <div class="form-check-inline"><input class="form-check-input" type="radio"
+                                                name="inlineDashFacilityOptions" id="stjwDashLocationRadio"
+                                                value="1.2"><label class="form-check-label"
+                                                for="stjwDashLocationRadio">Wayne</label></div>
+                                    </div>
+                                </div><button id="submitDashBtn" class="btn btn-primary w-100 inputButton"
+                                    disabled="true" onclick="dashboardTable()">Load Dashboard</button>
+                            </div>
+                        </div>
+                        <div id="dashboardTableDiv" style="width:100%;"></div>
+                    </div>
+                </div>
+                <div id="settingsDiv" style="display:none;">
+                    <div class="container py-5">
+                        <div class="row row-cols-1 row-cols-md-3 g-4">
+                            <div class="col">
+                                <div class="card h-100">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <div style="cursor:default;"
+                                            title="The following Users will get daily report emails.">Daily Email
+                                            Addresses</div><a id="dailyEmailAddrBtn" style="margin-left:50px;" href="#"
+                                            data-bs-toggle="modal" data-bs-target="#settingsModalDiv"
+                                            class="btn btn-primary btn-sm">Update</a>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="accordion" id="settingsAccordionDiv1">
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="settingsAccordionHeadDiv1"><button
+                                                        id="setting1AccordBtnElement" class="accordion-button collapsed"
+                                                        type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#settingsAccordionBodyDiv1">Email Recipients
+                                                        (8)</button></h2>
+                                                <div id="settingsAccordionBodyDiv1" class="accordion-collapse collapse"
+                                                    data-bs-parent="#settingsAccordionDiv1">
+                                                    <div class="accordion-body">
+                                                        <ul id="setting1UlElement" class="list-group list-group-flush">
+                                                            <li class="list-group-item">v_cbh_ch@sjhmc.org</li>
+                                                            <li class="list-group-item">oliverak@sjhmc.org</li>
+                                                            <li class="list-group-item">v_quest_ham@sjhmc.org</li>
+                                                            <li class="list-group-item">fernandn@sjhmc.org</li>
+                                                            <li class="list-group-item">sortokate@sjhmc.org</li>
+                                                            <li class="list-group-item">conwaym@sjhmc.org</li>
+                                                            <li class="list-group-item">moreanoc@sjhmc.org</li>
+                                                            <li class="list-group-item">thimothem@sjhmc.org</li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="dailyEmailAddressSettingSubmitFooter" class="card-footer"><span>Last
+                                            Update:&nbsp;&nbsp;</span><span>Heidbreder, Charles (07/02/2025
+                                            11:42)</span></div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div id="dashboardDiv" style="display: none; width: 100%">
-                    <div class="d-flex" style="height: 100%; width: 100%">
-                        <div id="changeReportFilterDiv" class="card shadow-sm p-4"
-                            style="width: 30vw; min-width: 30vw; margin-right: 1em">
-                            <div class="card-body">
-                                <h5 class="card-title mb-4">Change Filters</h5>
-                                <div class="mb-3">
-                                    <label for="changesFilterStartDate" class="form-label">Start Date</label><input
-                                        type="text" id="changesFilterStartDate" class="form-control" />
-                                </div>
-                                <div class="mb-3">
-                                    <label for="changesFilterStopDate" class="form-label">Stop Date</label><input
-                                        type="text" id="changesFilterStopDate" class="form-control" />
-                                </div>
-                                <div class="d-grid mt-4">
-                                    <button type="button" id="submitFilterButton" class="btn btn-primary">
-                                        Submit
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                        <div style="width: 100%">
-                            <span id="changeHeaderTitleLocation" sdate="" edate=""></span>
-                            <div id="dashboardTableDiv" class="table-sm" style="display: block; width: 100%"></div>
-                        </div>
-                    </div>
-                </div>
-                <div id="settingsDiv" style="display: none">
-                    <div style="height: 100%; width: 100%">
-                        <h5>Settings</h5>
-                        <p>
-                            Configure user preferences, report defaults, and other
-                            system-level options here.
-                        </p>
-                    </div>
-                </div>
-                <div id="adminDiv" style="display: none">
-                    <div style="height: 100%; width: 100%">
-                        <h5>Admin Tools</h5>
-                        <p>
-                            Access administrative controls, manage user roles, and oversee
-                            system configuration.
-                        </p>
-                    </div>
+                <div id="adminDiv" style="display:none;">
+                    <h5>Admin Tools</h5>
+                    <p>Access administrative controls, manage user roles, and oversee system configuration.</p>
                 </div>
             </div>
         </div>
-        <footer class="header-bar text-center py-2">
-          &copy; 2025 CBH Consulting LLC
-	</footer>
+        <footer class="header-bar text-center py-2"></footer>
+    </div>
+    <div class="modal fade" id="settingsModalDiv" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="display:flex;justify-content: space-between;">
+                    <h5 class="modal-title" id="settingsModalTitle"></h5><button type="button"
+                        class="btn btn-success btn-sm" onclick="addNewEmailAddr()">Add New</button>
+                </div>
+                <div class="modal-body">
+                    <div id="settingsModalBodyDiv">
+                        <table id="settings1ModalTable" class="table table-sm table-striped table-hover"
+                            style="width:100%;">
+                            <thead>
+                                <tr>
+                                    <th style="width:75%;"><u>Email</u></th>
+                                    <th style="width:12.5%;text-align:center;"><u>Modify</u></th>
+                                    <th style="width:12.5%;text-align:center;"><u>Delete</u></th>
+                                </tr>
+                            </thead>
+                            <tbody id="settingsModalBodyTableTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer"><button id="closeSettingsModalBtn" type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-primary"
+                        onclick="submitUpdateSetting1()">Submit</button></div>
+            </div>
+        </div>
     </div>
 </body>
 
