@@ -3,8 +3,8 @@ import { resolve } from 'path'
 
 export default defineConfig({
   root: '.',
+  base: '/lab-reporting-dash/',
   build: {
-    base: '/lab-reporting-dash/',
     outDir: 'dist',
     assetsDir: 'assets',
     minify: false, // Disable minification to avoid terser dependency
