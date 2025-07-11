@@ -21,6 +21,10 @@ function initialload(){
     toggleRptPrompts();
   });
 
+  $('#workloadInfoBtn').on('click',function(){
+    window.open('/assets/docs/helpDoc.html', '_blank');
+  });
+
   $("#reportSelect,#startDate,#endDate,#stjrLocationRadio,#stjwLocationRadio,#allLocationRadio,#summaryLayoutRadio,#detailRadio").on('change',function(){
     formValidation();
   });
